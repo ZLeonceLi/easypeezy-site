@@ -34,9 +34,13 @@ revealEls.forEach((el, i) => {
 });
 
 // ===== Animated stat counters =====
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const stats = document.querySelectorAll('.stat__num');
 const animateStat = (el) => {
   const target = parseFloat(el.dataset.target);
+  const prefix0 = el.dataset.prefix || '';
+  const suffix0 = el.dataset.suffix || '';
+  if (reduceMotion) { el.textContent = `${prefix0}${target}${suffix0}`; return; }
   const prefix = el.dataset.prefix || '';
   const suffix = el.dataset.suffix || '';
   const dur = 1400;
@@ -61,16 +65,12 @@ const statObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.6 });
 stats.forEach((s) => statObserver.observe(s));
 
-// ===== Contact form -> mailto (static, OVH-ready) =====
+// ===== Contact form -> Web3Forms (avec repli mailto) =====
 const form = document.getElementById('contactForm');
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const f = form.elements;
-  if (!f.name.value.trim() || !f.email.value.trim()) {
-    f.name.value.trim() || f.name.focus();
-    form.reportValidity();
-    return;
-  }
+const btn = form.querySelector('button[type="submit"]');
+const KEY_PLACEHOLDER = 'VOTRE_CLE_WEB3FORMS';
+
+const mailtoFallback = (f) => {
   const subject = encodeURIComponent(`Demande de devis — ${f.name.value}`);
   const body = encodeURIComponent(
     `Nom / structure : ${f.name.value}\n` +
@@ -80,7 +80,42 @@ form.addEventListener('submit', (e) => {
     `Message :\n${f.message.value}`
   );
   window.location.href = `mailto:easypeezy.ep@gmail.com?subject=${subject}&body=${body}`;
-  form.classList.add('sent');
-  const btn = form.querySelector('button[type="submit"]');
-  btn.textContent = 'Merci ! Votre client mail va s\'ouvrir ✓';
+};
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const f = form.elements;
+  if (!f.name.value.trim() || !f.email.value.trim()) {
+    form.reportValidity();
+    return;
+  }
+
+  // Tant que la clé Web3Forms n'est pas renseignée : repli mailto
+  if (!f.access_key || f.access_key.value === KEY_PLACEHOLDER) {
+    mailtoFallback(f);
+    form.classList.add('sent');
+    btn.textContent = 'Merci ! Votre client mail va s\'ouvrir';
+    return;
+  }
+
+  btn.disabled = true;
+  btn.textContent = 'Envoi…';
+  try {
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(form),
+    });
+    const data = await res.json();
+    if (data.success) {
+      form.classList.add('sent');
+      btn.textContent = 'Merci ! Votre demande est bien envoyée';
+    } else {
+      throw new Error(data.message || 'Erreur');
+    }
+  } catch (err) {
+    btn.disabled = false;
+    btn.textContent = 'Erreur, réessayez ou écrivez-nous';
+    mailtoFallback(f);
+  }
 });
