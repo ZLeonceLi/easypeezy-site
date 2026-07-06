@@ -220,9 +220,17 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
       count = CONFIGURED ? await remoteAddDrop(email) : await localAddDrop(email);
       localStorage.setItem(LOCAL_EMAIL_KEY, email);
       renderCount(count);
-      jar?.addDrop();
-      checkMilestones(before, count);
-      showNote('Merci, votre goutte de soutien est enregistrée 💧');
+      // add_drop() ne renvoie que le total (pas de indicateur "nouveau" côté
+      // base, pour ne pas exposer si un email précis existe déjà). On déduit
+      // donc localement : si le total n'a pas bougé, cet email avait déjà
+      // une goutte enregistrée, il ne faut ni en rajouter une ni fêter un palier.
+      if (count > before) {
+        jar?.addDrop();
+        checkMilestones(before, count);
+        showNote('Merci, votre goutte de soutien est enregistrée 💧');
+      } else {
+        showNote('Cet email a déjà soutenu le mouvement, merci quand même 💧');
+      }
       markContributed();
     } catch {
       els.mascotBtn.disabled = false;
