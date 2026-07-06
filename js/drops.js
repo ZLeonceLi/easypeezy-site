@@ -46,6 +46,18 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
   let contributed = !!localStorage.getItem(LOCAL_EMAIL_KEY);
   let busy = false;
 
+  // PostgREST renvoie parfois le résultat d'une fonction scalaire sous forme
+  // d'objet ou de tableau (ex: si la fonction en base n'a pas le bon type de
+  // retour). On extrait systématiquement un nombre pour éviter d'afficher
+  // "[object Object]" et de fausser le calcul du palier.
+  const toCount = (value) => {
+    let v = value;
+    if (Array.isArray(v)) v = v[0];
+    if (v && typeof v === 'object') v = Object.values(v)[0];
+    const n = Number(v);
+    return Number.isFinite(n) ? n : 0;
+  };
+
   const formatCount = (n) => n.toLocaleString('fr-FR');
 
   const nextMilestone = (n) => MILESTONES.find((m) => m > n) ?? MILESTONES[MILESTONES.length - 1];
@@ -73,18 +85,39 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
     els.note.hidden = false;
   };
 
-  const shareText = (n) => `${formatCount(n)} personnes ont déjà ajouté leur goutte à Easy Peezy 💧 Rejoignez-nous : ${window.location.origin}`;
+  const SITE_URL = 'https://easy-peezy.fr/';
+  const shareText = (n) => `${formatCount(n)} personne${n > 1 ? 's' : ''} ${n > 1 ? 'ont' : 'a'} déjà ajouté ${n > 1 ? 'leur' : 'sa'} goutte à Easy Peezy 💧 Rejoignez-nous : ${SITE_URL}`;
 
   els.share.addEventListener('click', async () => {
     const text = shareText(count);
-    if (navigator.share) {
+
+    // 1) Partage natif avec image "story" générée à la volée (Instagram,
+    // TikTok, Facebook récupèrent alors une vraie image, pas juste un lien).
+    if (typeof generateShareImage === 'function' && navigator.canShare) {
       try {
-        await navigator.share({ text, url: window.location.href, title: 'Easy Peezy' });
-        return;
-      } catch {
-        // partage annulé ou indisponible : on tente la copie presse-papiers ci-dessous
+        const blob = await generateShareImage(count);
+        const file = new File([blob], 'easypeezy-soutien.png', { type: 'image/png' });
+        if (navigator.canShare({ files: [file] })) {
+          await navigator.share({ files: [file], title: 'Easy Peezy', text });
+          return;
+        }
+      } catch (err) {
+        if (err && err.name === 'AbortError') return; // partage annulé par l'utilisateur
+        // sinon (image non générée, non supporté...) : on retente en texte simple ci-dessous
       }
     }
+
+    // 2) Repli : partage natif texte seul
+    if (navigator.share) {
+      try {
+        await navigator.share({ text, url: SITE_URL, title: 'Easy Peezy' });
+        return;
+      } catch (err) {
+        if (err && err.name === 'AbortError') return;
+      }
+    }
+
+    // 3) Repli : copie dans le presse-papiers
     try {
       await navigator.clipboard.writeText(text);
       const original = els.share.textContent;
@@ -125,7 +158,7 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
       body: '{}',
     });
     if (!res.ok) throw new Error('drops fetch failed');
-    return res.json();
+    return toCount(await res.json());
   };
 
   const remoteAddDrop = async (email) => {
@@ -139,7 +172,7 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
       body: JSON.stringify({ p_email: email }),
     });
     if (!res.ok) throw new Error('invalid_email');
-    return res.json();
+    return toCount(await res.json());
   };
 
   const localAddDrop = (email) => {
