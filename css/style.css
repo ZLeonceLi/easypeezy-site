@@ -4,6 +4,10 @@
 @font-face{font-family:"HK Grotesk";src:url("../assets/fonts/HKGrotesk-Medium.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
 @font-face{font-family:"HK Grotesk";src:url("../assets/fonts/HKGrotesk-SemiBold.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
 @font-face{font-family:"HK Grotesk";src:url("../assets/fonts/HKGrotesk-Bold.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Vintage Glamore";src:url("../assets/fonts/VintageGlamore-Regular.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:"Vintage Glamore";src:url("../assets/fonts/VintageGlamore-Italic.ttf") format("truetype");font-weight:400;font-style:italic;font-display:swap}
+
+.brand-name{font-family:"Vintage Glamore",var(--serif)}
 
 /* ============ TOKENS ============ */
 :root{
@@ -205,8 +209,8 @@ h1,h2,h3,h4{font-family:var(--serif);line-height:1.05;font-weight:700;letter-spa
 /* ============ COMPTEUR GOUTTES DE SOUTIEN ============ */
 .drops{padding:7rem 24px;background:var(--baby)}
 .drops .section__head h2{color:var(--navy)}
-.drops-widget{width:100%;max-width:460px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;background:var(--cream);border:2px solid var(--navy);border-radius:var(--radius-lg);box-shadow:var(--shadow-hard);padding:2.6rem 2rem 2.2rem;position:relative;box-sizing:border-box}
-.drops-widget__mascot-btn{margin-top:1.2rem;background:none;border:0;padding:0;cursor:pointer;width:112px;line-height:0}
+.drops-widget{width:100%;max-width:640px;margin:0 auto;display:flex;flex-direction:column;align-items:center;text-align:center;background:var(--cream);border:2px solid var(--navy);border-radius:var(--radius-lg);box-shadow:var(--shadow-hard);padding:2.6rem 2rem 2.2rem;position:relative;box-sizing:border-box}
+.drops-widget__mascot-btn{margin-top:1.2rem;background:none;border:0;padding:0;cursor:pointer;width:140px;line-height:0}
 .drops-widget__mascot{width:100%;filter:drop-shadow(0 10px 18px rgba(37,67,104,.28));transition:transform .18s ease}
 .drops-widget__mascot-btn:hover .drops-widget__mascot{transform:translateY(-4px) rotate(-4deg)}
 .drops-widget__mascot-btn:active .drops-widget__mascot{transform:translateY(2px) scale(.94) rotate(2deg)}
@@ -219,9 +223,9 @@ h1,h2,h3,h4{font-family:var(--serif);line-height:1.05;font-weight:700;letter-spa
 .drops-widget__email-input{flex:1;min-width:0;font-family:var(--sans);font-size:.92rem;padding:.7rem .9rem;border:2px solid var(--navy);border-radius:12px;background:#fff;color:var(--ink);transition:box-shadow .16s ease}
 .drops-widget__email-input:focus{outline:none;box-shadow:3px 3px 0 var(--crimson)}
 .drops-widget__email-note{margin-top:.6rem;font-size:.82rem;color:var(--navy)}
-.drops-widget__funnel{position:relative;width:100%;max-width:190px;aspect-ratio:190/200;margin:1.1rem 0 0}
+.drops-widget__funnel{position:relative;width:100%;max-width:250px;aspect-ratio:190/200;margin:1.1rem 0 0}
 .drops-widget__funnel-img{width:100%;height:100%;object-fit:contain;object-position:bottom;filter:drop-shadow(0 6px 12px rgba(37,67,104,.2))}
-.drops-widget__jar{width:100%;max-width:240px;margin:0 auto;background:transparent;border:2px solid var(--navy);border-top:0;border-radius:0 0 26px 26px;overflow:hidden}
+.drops-widget__jar{width:100%;max-width:320px;margin:0 auto;background:transparent;border:2px solid var(--navy);border-top:0;border-radius:0 0 26px 26px;overflow:hidden}
 .drops-widget__jar-canvas{display:block;width:100%;aspect-ratio:240/200}
 .drops-widget__count{font-family:var(--serif);font-size:1.1rem;color:var(--navy);margin-top:1.2rem}
 .drops-widget__count strong{font-size:1.7rem;color:var(--crimson);margin-right:.35rem}
@@ -324,7 +328,7 @@ h1,h2,h3,h4{font-family:var(--serif);line-height:1.05;font-weight:700;letter-spa
   .values__grid,.timeline,.benefits__grid{grid-template-columns:1fr}
   .contact__form{grid-template-columns:1fr}
   .footer__bottom{flex-direction:column}
-  .drops-widget{padding:2rem 1.2rem 1.8rem}
+  .drops-widget{max-width:480px;padding:2rem 1.2rem 1.8rem}
 }
 
 /* ============ REDUCED MOTION ============ */

@@ -1,80 +1,121 @@
-// ===== Image de partage "story" (1080×1920) pour #soutien =====
-// Générée à la volée pour que le partage natif (Instagram/TikTok/Facebook)
-// récupère une vraie image prête à poster, pas juste un lien texte.
-function drawTeardrop(ctx, cx, cy, size, color) {
-  ctx.save();
-  ctx.fillStyle = color;
-  ctx.beginPath();
-  ctx.moveTo(cx, cy - size);
-  ctx.bezierCurveTo(
-    cx + size * 0.75, cy - size * 0.2,
-    cx + size * 0.75, cy + size * 0.6,
-    cx, cy + size * 0.8
-  );
-  ctx.bezierCurveTo(
-    cx - size * 0.75, cy + size * 0.6,
-    cx - size * 0.75, cy - size * 0.2,
-    cx, cy - size
-  );
-  ctx.closePath();
-  ctx.fill();
-  ctx.restore();
+// ===== Image de partage "sticker" pour #soutien =====
+// Format story (1080×1920), fond entièrement transparent : juste la
+// mascotte, le nom de la marque en lettrage vintage glamour et un appel à
+// l'action, sans cadre ni carte — pensé pour flotter sur la photo/vidéo de
+// la story de la personne qui partage, comme un vrai sticker.
+
+// Police "vintage glamour" pour le lettrage "Easy Peezy", auto-hébergée
+// (cf. assets/fonts) et injectée une seule fois quelle que soit la page.
+(() => {
+  if (document.getElementById('share-image-fonts')) return;
+  const style = document.createElement('style');
+  style.id = 'share-image-fonts';
+  style.textContent = `
+    @font-face{
+      font-family:"Playfair Display";
+      font-style:italic;
+      font-weight:900;
+      src:url("assets/fonts/PlayfairDisplay-BlackItalic.woff2") format("woff2");
+      font-display:swap;
+    }
+  `;
+  document.head.appendChild(style);
+})();
+
+function loadImage(src) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = reject;
+    img.src = src;
+  });
 }
 
 async function generateShareImage(dropCount) {
-  // S'assure que HK Grotesk est chargée avant de dessiner le texte : sinon
-  // le canvas peut silencieusement retomber sur une police système si
-  // l'appel arrive avant la fin du chargement de la fonte.
+  // S'assure que les polices sont chargées avant de dessiner le texte :
+  // sinon le canvas peut silencieusement retomber sur une police système si
+  // l'appel arrive avant la fin du chargement des fontes.
   if (document.fonts && document.fonts.load) {
     try {
       await Promise.all([
-        document.fonts.load('500 100px "HK Grotesk"'),
-        document.fonts.load('400 34px "HK Grotesk"'),
+        document.fonts.load('italic 900 160px "Playfair Display"'),
+        document.fonts.load('700 40px "HK Grotesk"'),
       ]);
     } catch {
-      // tant pis, repli sur la police système par défaut du canvas
+      // tant pis, repli sur les polices système par défaut du canvas
     }
+  }
+
+  let mascot = null;
+  try {
+    mascot = await loadImage('assets/mascotte.png');
+  } catch {
+    // pas bloquant : le sticker se dessine sans la mascotte si l'image manque
   }
 
   const canvas = document.createElement('canvas');
   canvas.width = 1080;
   canvas.height = 1920;
   const ctx = canvas.getContext('2d');
+  // Rien n'est peint en fond : le canvas reste 100% transparent (alpha).
 
-  ctx.fillStyle = '#254368';
-  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  const centerX = canvas.width / 2;
+  let y = canvas.height / 2 - 260;
 
-  drawTeardrop(ctx, canvas.width / 2, 620, 280, '#df0450');
-
-  ctx.beginPath();
-  ctx.moveTo(canvas.width / 2, 480);
-  ctx.quadraticCurveTo(canvas.width / 2 - 60, 560, canvas.width / 2, 640);
-  ctx.quadraticCurveTo(canvas.width / 2 + 60, 720, canvas.width / 2, 800);
-  ctx.strokeStyle = '#bed7f2';
-  ctx.lineWidth = 8;
-  ctx.stroke();
-
-  ctx.textAlign = 'center';
-  ctx.fillStyle = '#bed7f2';
-  ctx.font = '500 44px "HK Grotesk", sans-serif';
-  ctx.fillText('JE SOUTIENS', canvas.width / 2, 1050);
-
-  ctx.fillStyle = '#fff8ba';
-  ctx.font = '500 100px "HK Grotesk", sans-serif';
-  ctx.fillText('EASY PEEZY', canvas.width / 2, 1160);
-
-  if (dropCount) {
-    ctx.fillStyle = '#df0450';
-    ctx.font = '500 56px "HK Grotesk", sans-serif';
-    ctx.fillText(`Goutte n°${dropCount}`, canvas.width / 2, 1280);
+  // Mascotte seule, avec une ombre douce pour rester lisible sur n'importe
+  // quel fond de story (plus de carte derrière pour la détacher).
+  if (mascot) {
+    const mw = 460;
+    const mh = mw * (mascot.height / mascot.width);
+    ctx.save();
+    ctx.shadowColor = 'rgba(21,44,71,.45)';
+    ctx.shadowBlur = 40;
+    ctx.shadowOffsetY = 18;
+    ctx.drawImage(mascot, centerX - mw / 2, y, mw, mh);
+    ctx.restore();
+    y += mh + 80;
   }
 
-  ctx.fillStyle = '#bed7f2';
-  ctx.font = '400 34px "HK Grotesk", sans-serif';
-  ctx.fillText('rejoins le mouvement', canvas.width / 2, 1720);
-  ctx.font = '500 34px "HK Grotesk", sans-serif';
+  ctx.textAlign = 'center';
+
+  // "Easy Peezy" en lettrage vintage glamour : serif italique très contrasté,
+  // couleur crimson avec une ombre navy douce pour le détacher du fond.
+  ctx.save();
+  ctx.shadowColor = 'rgba(21,44,71,.5)';
+  ctx.shadowBlur = 22;
+  ctx.shadowOffsetY = 6;
+  ctx.fillStyle = '#df0450';
+  ctx.font = 'italic 900 148px "Playfair Display", "Times New Roman", serif';
+  ctx.fillText('Easy Peezy', centerX, y);
+  ctx.restore();
+  y += 130;
+
+  // Appel à l'action
+  ctx.save();
+  ctx.shadowColor = 'rgba(21,44,71,.5)';
+  ctx.shadowBlur = 14;
+  ctx.shadowOffsetY = 4;
+  ctx.fillStyle = '#ffffff';
+  ctx.font = '700 56px "HK Grotesk", sans-serif';
+  ctx.fillText('Ajoute ta goutte !', centerX, y);
+  ctx.restore();
+  y += 90;
+
+  // Le numéro n'est affiché que pour une goutte "ronde" (100e, 200e, ...) :
+  // un vrai jalon à afficher fièrement, pas un numéro de série pour tout le monde.
+  if (dropCount && dropCount % 100 === 0) {
+    ctx.fillStyle = '#df0450';
+    ctx.font = '700 40px "HK Grotesk", sans-serif';
+    ctx.fillText(`Goutte n°${dropCount}`, centerX, y);
+    y += 70;
+  }
+
+  // Domaine bien visible : c'est la seule façon fiable de ramener vers le
+  // site depuis une story (Instagram/TikTok n'exposent pas de lien cliquable
+  // automatique pour une image partagée via le Web Share API standard).
   ctx.fillStyle = '#fff8ba';
-  ctx.fillText('easy-peezy.fr', canvas.width / 2, 1770);
+  ctx.font = '700 44px "HK Grotesk", sans-serif';
+  ctx.fillText('→ easy-peezy.fr', centerX, y);
 
   return new Promise((resolve) => {
     canvas.toBlob((blob) => resolve(blob), 'image/png');
