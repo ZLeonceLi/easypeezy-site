@@ -121,13 +121,14 @@ footer{
   background:var(--cream);border:2px solid var(--navy);border-radius:20px;
   box-shadow:5px 5px 0 var(--navy);padding:1.6rem 1.4rem 1.4rem;
 }
-.drops-widget__mascot-btn{background:none;border:0;padding:0;cursor:pointer;width:88px;line-height:0}
+.drops-widget__mascot-btn{margin-top:1rem;background:none;border:0;padding:0;cursor:pointer;width:88px;line-height:0}
 .drops-widget__mascot{width:100%;filter:drop-shadow(0 8px 14px rgba(37,67,104,.28));transition:transform .18s ease}
 .drops-widget__mascot-btn:hover .drops-widget__mascot{transform:translateY(-3px) rotate(-4deg)}
 .drops-widget__mascot-btn:active .drops-widget__mascot{transform:translateY(2px) scale(.94) rotate(2deg)}
 .drops-widget__mascot-btn:disabled{cursor:not-allowed}
 .drops-widget__mascot-btn:disabled .drops-widget__mascot{transform:none!important;opacity:.7}
 .drops-widget__hint{margin-top:.5rem;font-size:.74rem;color:var(--muted)}
+.drops-widget__hint--mascot{margin-top:.5rem;font-weight:700;color:var(--crimson)}
 .drops-widget__email-form{width:100%;max-width:280px;margin-top:.8rem}
 .drops-widget__email-row{display:flex;gap:.4rem}
 .drops-widget__email-input{flex:1;min-width:0;font-family:var(--sans);font-size:.85rem;padding:.6rem .8rem;border:2px solid var(--navy);border-radius:10px;background:#fff;color:var(--ink)}
@@ -151,10 +152,12 @@ footer{
 }
 .drops-widget__toast.is-visible{opacity:1;transform:none}
 .drops-widget__fund{
-  margin-top:1.1rem;padding-top:.9rem;border-top:1px solid rgba(37,67,104,.15);
-  font-size:.76rem;color:var(--muted);line-height:1.5;
+  margin-top:1.4rem;padding:1rem 1.1rem;
+  background:var(--butter);border:2px solid var(--navy);border-radius:14px;
+  box-shadow:3px 3px 0 var(--navy);
+  font-size:.88rem;font-weight:700;color:var(--navy);line-height:1.5;
 }
-.drops-widget__fund a{color:var(--crimson);font-weight:700;text-decoration:underline}
+.drops-widget__fund a{display:inline-block;margin-top:.2rem;color:var(--crimson);font-weight:700;text-decoration:underline;font-size:.92rem}
 
 </style>
 </head>
@@ -189,15 +192,16 @@ footer{
   </nav>
 
   <div class="drops-widget" data-drops-widget>
-    <button type="submit" form="dropsEmailFormLinks" class="drops-widget__mascot-btn" data-drops-btn aria-label="Ajouter votre goutte de soutien">
-      <img src="assets/mascotte.png" alt="" class="drops-widget__mascot" />
-    </button>
     <p class="drops-widget__hint">Ajoute ton adresse mail pour ajouter ta goutte</p>
     <form class="drops-widget__email-form" id="dropsEmailFormLinks" data-drops-email-form novalidate>
       <div class="drops-widget__email-row">
         <input type="email" inputmode="email" autocomplete="email" required placeholder="vous@exemple.com" class="drops-widget__email-input" data-drops-email-input />
       </div>
     </form>
+    <button type="submit" form="dropsEmailFormLinks" class="drops-widget__mascot-btn" data-drops-btn aria-label="Ajouter votre goutte de soutien">
+      <img src="assets/mascotte.png" alt="" class="drops-widget__mascot" />
+    </button>
+    <p class="drops-widget__hint drops-widget__hint--mascot">Clique sur Peezy pour ajouter ta goutte</p>
     <p class="drops-widget__email-note" data-drops-email-note hidden></p>
     <div class="drops-widget__funnel">
       <img src="assets/entonnoire.png" alt="" class="drops-widget__funnel-img" />

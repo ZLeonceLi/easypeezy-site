@@ -73,7 +73,7 @@ const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBh
     els.note.hidden = false;
   };
 
-  const shareText = (n) => `Je fais partie des ${formatCount(n)} soutiens du mouvement Easy Peezy 💧 Rejoignez-nous : ${window.location.origin}${window.location.pathname}`;
+  const shareText = (n) => `${formatCount(n)} personnes ont déjà ajouté leur goutte à Easy Peezy 💧 Rejoignez-nous : ${window.location.origin}`;
 
   els.share.addEventListener('click', async () => {
     const text = shareText(count);

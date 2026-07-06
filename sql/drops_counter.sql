@@ -30,6 +30,10 @@ $$;
 -- unique sur la colonne). Renvoie uniquement le total à jour : on ne
 -- renvoie jamais si CET email précis existait déjà, pour ne pas exposer
 -- un oracle permettant de tester en masse si une adresse a déjà participé.
+-- Le type de retour a changé (table -> bigint) par rapport à une version
+-- précédente : il faut la supprimer avant de la recréer, Postgres refuse
+-- de changer le type de retour d'une fonction existante avec CREATE OR REPLACE.
+drop function if exists public.add_drop(text);
 create or replace function public.add_drop(p_email text)
 returns bigint
 language plpgsql
