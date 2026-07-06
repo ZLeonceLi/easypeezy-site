@@ -69,6 +69,7 @@ stats.forEach((s) => statObserver.observe(s));
 const form = document.getElementById('contactForm');
 const btn = form.querySelector('button[type="submit"]');
 const KEY_PLACEHOLDER = 'VOTRE_CLE_WEB3FORMS';
+const EMAIL_PATTERN = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)+$/;
 
 const mailtoFallback = (f) => {
   const subject = encodeURIComponent(`Demande de devis — ${f.name.value}`);
@@ -87,6 +88,12 @@ form.addEventListener('submit', async (e) => {
   const f = form.elements;
   if (!f.name.value.trim() || !f.email.value.trim()) {
     form.reportValidity();
+    return;
+  }
+  if (!EMAIL_PATTERN.test(f.email.value.trim())) {
+    f.email.setCustomValidity('Merci d’entrer une adresse email valide.');
+    form.reportValidity();
+    f.email.setCustomValidity('');
     return;
   }
 

@@ -37,6 +37,7 @@
       <a href="#stand">Le stand</a>
       <a href="#produit">Le produit</a>
       <a href="#mode-emploi">Mode d'emploi</a>
+      <a href="#soutien">Soutenir</a>
       <a href="#faq">FAQ</a>
       <a href="#contact" class="nav__cta">Demander un devis</a>
     </nav>
@@ -258,6 +259,38 @@
     </div>
   </section>
 
+  <!-- ============ COMPTEUR GOUTTES DE SOUTIEN ============ -->
+  <section class="drops" id="soutien">
+    <div class="section__head reveal">
+      <span class="kicker">Rejoignez le mouvement</span>
+      <h2>Chaque <em>goutte</em> compte.</h2>
+      <p class="lead">Laissez votre email pour ajouter votre goutte de soutien et faire grandir le mouvement Easy Peezy. Une adresse email = une goutte.</p>
+    </div>
+    <div class="drops-widget reveal" data-drops-widget>
+      <button type="submit" form="dropsEmailForm" class="drops-widget__mascot-btn" data-drops-btn aria-label="Ajouter votre goutte de soutien">
+        <img src="assets/mascotte.png" alt="" class="drops-widget__mascot" />
+      </button>
+      <p class="drops-widget__hint">Ajoute ton adresse mail pour ajouter ta goutte</p>
+      <form class="drops-widget__email-form" id="dropsEmailForm" data-drops-email-form novalidate>
+        <div class="drops-widget__email-row">
+          <input type="email" inputmode="email" autocomplete="email" required placeholder="vous@exemple.com" class="drops-widget__email-input" data-drops-email-input />
+        </div>
+      </form>
+      <p class="drops-widget__email-note" data-drops-email-note hidden></p>
+      <div class="drops-widget__funnel">
+        <img src="assets/entonnoire.png" alt="" class="drops-widget__funnel-img" />
+      </div>
+      <div class="drops-widget__jar">
+        <canvas class="drops-widget__jar-canvas" data-drops-canvas width="240" height="200" aria-hidden="true"></canvas>
+      </div>
+      <p class="drops-widget__count"><strong data-drops-count>–</strong> <span data-drops-count-label>gouttes de soutien</span></p>
+      <p class="drops-widget__progress" data-drops-progress></p>
+      <button type="button" class="drops-widget__share" data-drops-share hidden>Partager mon rang</button>
+      <div class="drops-widget__toast" data-drops-toast hidden></div>
+      <p class="drops-widget__fund">Envie d'aller plus loin et de financer le mouvement&nbsp;?<br /><a href="mailto:easypeezy.ep@gmail.com?subject=Je%20souhaite%20soutenir%20financièrement%20Easy%20Peezy">Écrivez-nous</a></p>
+    </div>
+  </section>
+
   <!-- ============ FAQ ============ -->
   <section class="faq" id="faq">
     <div class="section__head reveal">
@@ -300,7 +333,7 @@
       <h2>Accueillez un stand Easy Peezy sur votre prochain événement.</h2>
       <p class="lead">Dites-nous la date, le lieu et l'affluence attendue. On revient vers vous sous 48h avec une proposition claire.</p>
       <form class="contact__form" id="contactForm" novalidate>
-        <input type="hidden" name="access_key" value="VOTRE_CLE_WEB3FORMS" />
+        <input type="hidden" name="access_key" value="d61c423d-0587-4fef-9f25-bc1dd3032094" />
         <input type="hidden" name="subject" value="Nouvelle demande de devis — Easy Peezy" />
         <input type="hidden" name="from_name" value="Site Easy Peezy" />
         <input type="checkbox" name="botcheck" class="hidden" style="display:none" tabindex="-1" autocomplete="off" />
@@ -330,6 +363,7 @@
         <a href="#stand">Le stand</a>
         <a href="#produit">Le produit</a>
         <a href="#mode-emploi">Mode d'emploi</a>
+        <a href="#soutien">Soutenir</a>
       </div>
       <div class="footer__col">
         <h4>Contact et réseaux</h4>
@@ -346,5 +380,8 @@
   </footer>
 
   <script src="js/main.js"></script>
+  <script src="js/vendor/matter.min.js"></script>
+  <script src="js/drops-physics.js"></script>
+  <script src="js/drops.js"></script>
 </body>
 </html>

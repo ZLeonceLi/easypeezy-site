@@ -6,6 +6,8 @@
 <title>Easy Peezy · Tous nos liens</title>
 <meta name="description" content="Retrouvez tous les liens Easy Peezy : réseaux sociaux, dernier article et site officiel." />
 <meta name="robots" content="noindex" />
+<link rel="icon" type="image/png" href="assets/logo.png" />
+<link rel="apple-touch-icon" href="assets/logo.png" />
 <style>
 @font-face{font-family:"HK Grotesk";src:url("assets/fonts/HKGrotesk-Regular.woff2") format("woff2");font-weight:400;font-style:normal;font-display:swap}
 @font-face{font-family:"HK Grotesk";src:url("assets/fonts/HKGrotesk-Medium.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
@@ -113,6 +115,47 @@ footer{
   margin-top:1.8rem;font-size:.78rem;color:var(--muted);
   text-align:center;
 }
+
+.drops-widget{
+  width:100%;margin-top:2rem;display:flex;flex-direction:column;align-items:center;text-align:center;
+  background:var(--cream);border:2px solid var(--navy);border-radius:20px;
+  box-shadow:5px 5px 0 var(--navy);padding:1.6rem 1.4rem 1.4rem;
+}
+.drops-widget__mascot-btn{background:none;border:0;padding:0;cursor:pointer;width:88px;line-height:0}
+.drops-widget__mascot{width:100%;filter:drop-shadow(0 8px 14px rgba(37,67,104,.28));transition:transform .18s ease}
+.drops-widget__mascot-btn:hover .drops-widget__mascot{transform:translateY(-3px) rotate(-4deg)}
+.drops-widget__mascot-btn:active .drops-widget__mascot{transform:translateY(2px) scale(.94) rotate(2deg)}
+.drops-widget__mascot-btn:disabled{cursor:not-allowed}
+.drops-widget__mascot-btn:disabled .drops-widget__mascot{transform:none!important;opacity:.7}
+.drops-widget__hint{margin-top:.5rem;font-size:.74rem;color:var(--muted)}
+.drops-widget__email-form{width:100%;max-width:280px;margin-top:.8rem}
+.drops-widget__email-row{display:flex;gap:.4rem}
+.drops-widget__email-input{flex:1;min-width:0;font-family:var(--sans);font-size:.85rem;padding:.6rem .8rem;border:2px solid var(--navy);border-radius:10px;background:#fff;color:var(--ink)}
+.drops-widget__email-input:focus{outline:none;box-shadow:3px 3px 0 var(--crimson)}
+.drops-widget__email-note{margin-top:.5rem;font-size:.76rem;color:var(--navy)}
+.drops-widget__funnel{position:relative;width:140px;height:150px;margin:.8rem 0 0}
+.drops-widget__funnel-img{width:100%;height:100%;object-fit:contain;object-position:bottom;filter:drop-shadow(0 4px 8px rgba(37,67,104,.2))}
+.drops-widget__jar{width:180px;margin:0 auto;background:transparent;border:2px solid var(--navy);border-top:0;border-radius:0 0 20px 20px;overflow:hidden}
+.drops-widget__jar-canvas{display:block;width:180px;height:150px}
+.drops-widget__count{font-size:.95rem;color:var(--navy);margin-top:.9rem}
+.drops-widget__count strong{font-size:1.3rem;color:var(--crimson);margin-right:.3rem}
+.drops-widget__progress{margin-top:.4rem;font-size:.78rem;color:var(--muted)}
+.drops-widget__share{
+  margin-top:.8rem;background:none;border:0;color:var(--navy);
+  font-weight:600;font-size:.82rem;text-decoration:underline;cursor:pointer;font-family:var(--sans);
+}
+.drops-widget__toast{
+  margin-top:1rem;background:var(--butter);border:2px solid var(--navy);border-radius:12px;
+  padding:.7rem .9rem;font-size:.8rem;font-weight:600;color:var(--navy);
+  opacity:0;transform:translateY(6px);transition:opacity .3s ease,transform .3s ease;
+}
+.drops-widget__toast.is-visible{opacity:1;transform:none}
+.drops-widget__fund{
+  margin-top:1.1rem;padding-top:.9rem;border-top:1px solid rgba(37,67,104,.15);
+  font-size:.76rem;color:var(--muted);line-height:1.5;
+}
+.drops-widget__fund a{color:var(--crimson);font-weight:700;text-decoration:underline}
+
 </style>
 </head>
 <body>
@@ -145,6 +188,30 @@ footer{
     </a>
   </nav>
 
+  <div class="drops-widget" data-drops-widget>
+    <button type="submit" form="dropsEmailFormLinks" class="drops-widget__mascot-btn" data-drops-btn aria-label="Ajouter votre goutte de soutien">
+      <img src="assets/mascotte.png" alt="" class="drops-widget__mascot" />
+    </button>
+    <p class="drops-widget__hint">Ajoute ton adresse mail pour ajouter ta goutte</p>
+    <form class="drops-widget__email-form" id="dropsEmailFormLinks" data-drops-email-form novalidate>
+      <div class="drops-widget__email-row">
+        <input type="email" inputmode="email" autocomplete="email" required placeholder="vous@exemple.com" class="drops-widget__email-input" data-drops-email-input />
+      </div>
+    </form>
+    <p class="drops-widget__email-note" data-drops-email-note hidden></p>
+    <div class="drops-widget__funnel">
+      <img src="assets/entonnoire.png" alt="" class="drops-widget__funnel-img" />
+    </div>
+    <div class="drops-widget__jar">
+      <canvas class="drops-widget__jar-canvas" data-drops-canvas width="180" height="150" aria-hidden="true"></canvas>
+    </div>
+    <p class="drops-widget__count"><strong data-drops-count>–</strong> <span data-drops-count-label>gouttes de soutien</span></p>
+    <p class="drops-widget__progress" data-drops-progress></p>
+    <button type="button" class="drops-widget__share" data-drops-share hidden>Partager mon rang</button>
+    <div class="drops-widget__toast" data-drops-toast hidden></div>
+    <p class="drops-widget__fund">Envie de financer le mouvement&nbsp;? <a href="mailto:easypeezy.ep@gmail.com?subject=Je%20souhaite%20soutenir%20financièrement%20Easy%20Peezy">Écrivez-nous</a></p>
+  </div>
+
   <div class="socials">
     <a href="https://www.instagram.com/easypeezy.ep/" target="_blank" rel="noopener" aria-label="Instagram">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
@@ -162,5 +229,8 @@ footer{
 
   <footer>© 2026 Easy Peezy</footer>
 </main>
+<script src="js/vendor/matter.min.js"></script>
+<script src="js/drops-physics.js"></script>
+<script src="js/drops.js"></script>
 </body>
 </html>
