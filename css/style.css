@@ -263,6 +263,8 @@ h1,h2,h3,h4{font-family:var(--serif);line-height:1.05;font-weight:700;letter-spa
 .contact__form .btn--block{grid-column:1/-1}
 .contact__alt{margin-top:1.4rem;font-size:.95rem;color:var(--navy)}
 .contact__alt a{color:var(--crimson);font-weight:700}
+.contact__privacy{margin-top:.9rem;font-size:.78rem;opacity:.65}
+.contact__privacy a{color:inherit;text-decoration:underline}
 .contact__form.sent{opacity:.6;pointer-events:none}
 
 /* ============ FOOTER ============ */
