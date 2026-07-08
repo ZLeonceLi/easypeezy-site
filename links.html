@@ -13,6 +13,9 @@
 @font-face{font-family:"HK Grotesk";src:url("assets/fonts/HKGrotesk-Medium.woff2") format("woff2");font-weight:500;font-style:normal;font-display:swap}
 @font-face{font-family:"HK Grotesk";src:url("assets/fonts/HKGrotesk-SemiBold.woff2") format("woff2");font-weight:600;font-style:normal;font-display:swap}
 @font-face{font-family:"HK Grotesk";src:url("assets/fonts/HKGrotesk-Bold.woff2") format("woff2");font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:"Vintage Glamore";src:url("assets/fonts/VintageGlamore-Regular.ttf") format("truetype");font-weight:400;font-style:normal;font-display:swap}
+
+.brand-name{font-family:"Vintage Glamore",var(--sans)}
 
 :root{
   --navy:#254368;
@@ -61,6 +64,21 @@ h1{
   font-size:.95rem;color:var(--muted);font-weight:500;
   margin-top:.4rem;text-align:center;max-width:320px;
 }
+
+.about-product{
+  width:100%;margin-top:1.8rem;display:flex;flex-direction:column;align-items:center;
+  padding:0 .2rem;text-align:center;
+}
+.about-product__pic{
+  width:160px;height:auto;object-fit:contain;
+  transform:rotate(-7deg) translateX(-6px);
+  filter:drop-shadow(0 12px 18px rgba(37,67,104,.22));
+  animation:about-product-float 5s ease-in-out infinite;
+}
+.about-product__text{font-size:.9rem;color:var(--muted);line-height:1.55;margin-top:.6rem;max-width:320px}
+.about-product__text strong{color:var(--navy)}
+
+@keyframes about-product-float{0%,100%{transform:rotate(-7deg) translateX(-6px) translateY(0)}50%{transform:rotate(-4deg) translateX(-6px) translateY(-8px)}}
 
 .links{
   width:100%;display:flex;flex-direction:column;gap:.85rem;
@@ -171,8 +189,13 @@ footer{
 
   <img class="avatar" src="assets/logo.png" alt="Easy Peezy" />
 
-  <h1>Easy Peezy</h1>
+  <h1><span class="brand-name">Easy Peezy</span></h1>
   <p class="bio">Moins d'attente aux toilettes, plus de confort dans vos festivals</p>
+
+  <div class="about-product">
+    <img src="assets/produit-picto.png" alt="Le dispositif Easy Peezy" class="about-product__pic" />
+    <p class="about-product__text"><strong class="brand-name">Easy Peezy</strong>, c'est un dispositif urinaire féminin jetable, propre et discret, pensé pour se soulager facilement quand les toilettes sont saturées ou peu adaptées.</p>
+  </div>
 
   <nav class="links" aria-label="Liens Easy Peezy">
     <a class="link-btn" href="https://www.instagram.com/easypeezy.ep/" target="_blank" rel="noopener">
