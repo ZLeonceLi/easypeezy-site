@@ -180,6 +180,8 @@ h1,h2,h3,h4{font-family:var(--serif);line-height:1.05;font-weight:700;letter-spa
 .usage .section__head h2{color:var(--navy)}
 .usage__card{max-width:var(--max);margin:0 auto;background:var(--white);border:2px solid var(--navy);border-radius:var(--radius-lg);box-shadow:var(--shadow-hard);padding:clamp(1.4rem,4vw,3rem)}
 .usage__card img{width:100%;height:auto}
+.usage__carousel{display:none}
+.usage__hint{display:none}
 
 /* ============ PROOF ============ */
 .proof{padding:7rem 24px;background:var(--baby)}
@@ -191,8 +193,8 @@ h1,h2,h3,h4{font-family:var(--serif);line-height:1.05;font-weight:700;letter-spa
 
 /* ============ SOCIAL / MICRO-TROTTOIR ============ */
 .social{padding:7rem 24px}
-.social__grid{max-width:var(--max);margin:0 auto;display:grid;grid-template-columns:1.6fr 1fr;gap:2.4rem;align-items:center}
-.social__videos{display:flex;flex-wrap:wrap;justify-content:center;gap:1.6rem}
+.social__grid{max-width:var(--max);margin:0 auto;display:flex;flex-direction:column;align-items:center;gap:2.8rem}
+.social__videos{display:flex;flex-wrap:wrap;justify-content:center;gap:1.6rem;width:100%}
 .social__video{margin:0;display:flex;flex-direction:column;align-items:center;flex:0 1 300px;max-width:300px}
 .social__video-embed{position:relative;width:100%;max-width:300px;height:600px;border-radius:var(--radius-lg);overflow:hidden;border:2px solid var(--navy);box-shadow:var(--shadow-hard);background:var(--navy)}
 .social__video-embed iframe,.social__video-embed video{position:absolute;inset:0;width:100%;height:100%;border:0}
@@ -200,7 +202,8 @@ h1,h2,h3,h4{font-family:var(--serif);line-height:1.05;font-weight:700;letter-spa
 .social__play{width:64px;height:64px;border-radius:50%;background:var(--crimson);display:flex;align-items:center;justify-content:center;color:#fff;box-shadow:0 10px 30px rgba(223,4,80,.4)}
 .social__video-ph p{color:rgba(255,255,255,.85);font-weight:600;line-height:1.4}
 .social__video figcaption{margin-top:1rem;color:var(--muted);font-size:.95rem;font-style:italic}
-.social__links{display:flex;flex-direction:column;gap:1rem;justify-content:center}
+.social__links{display:flex;flex-wrap:wrap;gap:1rem;justify-content:center;width:100%}
+.social__links .social__link{flex:1 1 260px;max-width:320px}
 .social__link{display:flex;align-items:center;gap:1rem;background:var(--cream-2);border:2px solid var(--navy);border-radius:var(--radius);padding:1.15rem 1.4rem;box-shadow:4px 4px 0 var(--navy);transition:transform .18s ease,box-shadow .18s ease}
 .social__link:hover{transform:translate(-3px,-3px);box-shadow:7px 7px 0 var(--crimson)}
 .social__ic{width:48px;height:48px;flex-shrink:0;display:flex;align-items:center;justify-content:center;border-radius:12px;background:var(--navy);color:var(--butter)}
@@ -314,13 +317,16 @@ h1,h2,h3,h4{font-family:var(--serif);line-height:1.05;font-weight:700;letter-spa
   .timeline{grid-template-columns:repeat(2,1fr)}
   .benefits__grid{grid-template-columns:repeat(2,1fr)}
   .proof__grid{grid-template-columns:1fr}
-  .social__grid{grid-template-columns:1fr}
   .footer__inner{grid-template-columns:1fr}
   .contact__mascot{width:90px;top:-46px;right:4%}
 }
 @media(max-width:680px){
-  .usage__card{overflow-x:auto}
-  .usage__card img{width:auto;max-width:none;min-width:640px}
+  .usage__card{display:none}
+  .usage__carousel{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;scrollbar-width:none;margin:0 -24px;padding:0 24px}
+  .usage__carousel::-webkit-scrollbar{display:none}
+  .usage__slide{flex:0 0 78%;scroll-snap-align:center;background:var(--white);border:2px solid var(--navy);border-radius:var(--radius-lg);box-shadow:var(--shadow-hard);padding:1.1rem;display:flex}
+  .usage__slide img{width:100%;height:auto;margin:auto}
+  .usage__hint{display:block;text-align:center;margin-top:.9rem;font-size:.85rem;color:var(--muted);font-style:italic}
   .nav__links{position:absolute;top:calc(100% + 10px);right:0;flex-direction:column;align-items:stretch;background:var(--cream);border:2px solid var(--navy);border-radius:20px;padding:.6rem;min-width:210px;box-shadow:var(--shadow);opacity:0;visibility:hidden;transform:translateY(-8px);transition:.2s}
   .nav__links.open{opacity:1;visibility:visible;transform:none}
   .nav__burger{display:flex}
