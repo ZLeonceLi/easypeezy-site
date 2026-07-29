@@ -18,6 +18,20 @@ navLinks.addEventListener('click', (e) => {
   }
 });
 
+// ===== Nav: active link on scroll (scrollspy) =====
+const navAnchors = [...navLinks.querySelectorAll('a[href^="#"]')];
+const navSections = navAnchors
+  .map((a) => document.getElementById(a.getAttribute('href').slice(1)))
+  .filter(Boolean);
+const setActiveNav = (id) => {
+  navAnchors.forEach((a) => a.classList.toggle('is-active', a.getAttribute('href') === `#${id}`));
+};
+const navObserver = new IntersectionObserver((entries) => {
+  const visible = entries.filter((e) => e.isIntersecting);
+  if (visible.length) setActiveNav(visible[0].target.id);
+}, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+navSections.forEach((s) => navObserver.observe(s));
+
 // ===== Scroll reveal =====
 const revealEls = document.querySelectorAll('.reveal');
 const revObserver = new IntersectionObserver((entries) => {

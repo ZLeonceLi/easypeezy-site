@@ -70,6 +70,7 @@ h1,h2,h3,h4{font-family:var(--serif);line-height:1.05;font-weight:700;letter-spa
 .nav__links{display:flex;align-items:center;gap:.3rem}
 .nav__links>a{padding:.55rem .9rem;border-radius:999px;font-weight:600;font-size:.94rem;color:var(--navy);transition:background .16s ease,color .16s ease}
 .nav__links>a:hover{background:var(--baby)}
+.nav__links>a.is-active:not(.nav__cta){background:var(--navy);color:#fff}
 .nav__cta{background:var(--crimson);color:#fff!important;font-weight:700}
 .nav__cta:hover{background:var(--navy)!important}
 .nav__burger{display:none;flex-direction:column;gap:5px;background:none;border:0;cursor:pointer;padding:8px}
@@ -170,9 +171,11 @@ h1,h2,h3,h4{font-family:var(--serif);line-height:1.05;font-weight:700;letter-spa
 .product__text .lead{color:rgba(255,255,255,.82)}
 .usecases{display:flex;flex-wrap:wrap;gap:.6rem;margin:1.8rem 0 2rem}
 .usecases span{background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.2);padding:.5rem 1rem;border-radius:999px;font-size:.88rem;font-weight:600}
+.product__aside{display:flex;flex-direction:column;gap:1.8rem}
 .product__aside blockquote{background:var(--butter);color:var(--navy);border-radius:var(--radius-lg);padding:2.6rem;border:2px solid var(--navy);box-shadow:var(--shadow-hard)}
 .stars{color:var(--crimson);font-size:1.4rem;letter-spacing:2px;margin-bottom:1rem}
 .product__aside p{font-family:var(--serif);font-size:1.35rem;line-height:1.35;letter-spacing:-.02em}
+.product__aside-fr{font-size:1rem!important;line-height:1.4!important;opacity:.72;margin-top:.7rem}
 .product__aside cite{display:block;margin-top:1.2rem;font-style:normal;font-weight:700;font-size:.9rem;opacity:.7}
 
 /* ============ MODE D'EMPLOI ============ */
@@ -319,6 +322,12 @@ h1,h2,h3,h4{font-family:var(--serif);line-height:1.05;font-weight:700;letter-spa
   .proof__grid{grid-template-columns:1fr}
   .footer__inner{grid-template-columns:1fr}
   .contact__mascot{width:90px;top:-46px;right:4%}
+  .nav__links{position:absolute;top:calc(100% + 10px);right:0;flex-direction:column;align-items:stretch;background:var(--cream);border:2px solid var(--navy);border-radius:20px;padding:.6rem;min-width:210px;box-shadow:var(--shadow);opacity:0;visibility:hidden;transform:translateY(-8px);transition:.2s}
+  .nav__links.open{opacity:1;visibility:visible;transform:none}
+  .nav__burger{display:flex}
+  .nav__burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+  .nav__burger.open span:nth-child(2){opacity:0}
+  .nav__burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 }
 @media(max-width:680px){
   .usage__card{display:none}
@@ -327,12 +336,6 @@ h1,h2,h3,h4{font-family:var(--serif);line-height:1.05;font-weight:700;letter-spa
   .usage__slide{flex:0 0 78%;scroll-snap-align:center;background:var(--white);border:2px solid var(--navy);border-radius:var(--radius-lg);box-shadow:var(--shadow-hard);padding:1.1rem;display:flex}
   .usage__slide img{width:100%;height:auto;margin:auto}
   .usage__hint{display:block;text-align:center;margin-top:.9rem;font-size:.85rem;color:var(--muted);font-style:italic}
-  .nav__links{position:absolute;top:calc(100% + 10px);right:0;flex-direction:column;align-items:stretch;background:var(--cream);border:2px solid var(--navy);border-radius:20px;padding:.6rem;min-width:210px;box-shadow:var(--shadow);opacity:0;visibility:hidden;transform:translateY(-8px);transition:.2s}
-  .nav__links.open{opacity:1;visibility:visible;transform:none}
-  .nav__burger{display:flex}
-  .nav__burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-  .nav__burger.open span:nth-child(2){opacity:0}
-  .nav__burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
   .stats{grid-template-columns:1fr}
   .values__grid,.timeline,.benefits__grid{grid-template-columns:1fr}
   .contact__form{grid-template-columns:1fr}

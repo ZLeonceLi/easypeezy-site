@@ -193,7 +193,10 @@ footer{
   <p class="bio">Moins d'attente aux toilettes, plus de confort dans vos festivals</p>
 
   <div class="about-product">
-    <img src="assets/produit-picto.png" alt="Le dispositif Easy Peezy" class="about-product__pic" />
+    <picture>
+      <source srcset="assets/produit-picto.webp" type="image/webp" />
+      <img src="assets/produit-picto.png" alt="Le dispositif Easy Peezy" class="about-product__pic" />
+    </picture>
     <p class="about-product__text"><strong class="brand-name">Easy Peezy</strong>, c'est un dispositif urinaire féminin jetable, propre et discret, pensé pour se soulager facilement quand les toilettes sont saturées ou peu adaptées.</p>
   </div>
 
@@ -232,12 +235,18 @@ footer{
       </div>
     </form>
     <button type="submit" form="dropsEmailFormLinks" class="drops-widget__mascot-btn" data-drops-btn aria-label="Ajouter votre goutte de soutien">
-      <img src="assets/mascotte.png" alt="" class="drops-widget__mascot" />
+      <picture>
+        <source srcset="assets/mascotte.webp" type="image/webp" />
+        <img src="assets/mascotte.png" alt="" class="drops-widget__mascot" loading="lazy" />
+      </picture>
     </button>
     <p class="drops-widget__hint drops-widget__hint--mascot">Clique sur Peezy pour ajouter ta goutte</p>
     <p class="drops-widget__email-note" data-drops-email-note hidden></p>
     <div class="drops-widget__funnel">
-      <img src="assets/entonnoire.png" alt="" class="drops-widget__funnel-img" />
+      <picture>
+        <source srcset="assets/entonnoire.webp" type="image/webp" />
+        <img src="assets/entonnoire.png" alt="" class="drops-widget__funnel-img" loading="lazy" />
+      </picture>
     </div>
     <div class="drops-widget__jar">
       <canvas class="drops-widget__jar-canvas" data-drops-canvas width="180" height="150" aria-hidden="true"></canvas>
