@@ -94,7 +94,7 @@ const mailtoFallback = (f) => {
     `Affluence attendue : ${f.affluence.value}\n\n` +
     `Message :\n${f.message.value}`
   );
-  window.location.href = `mailto:easypeezy.ep@gmail.com?subject=${subject}&body=${body}`;
+  window.location.href = `mailto:contact@easy-peezy.fr?subject=${subject}&body=${body}`;
 };
 
 form.addEventListener('submit', async (e) => {
