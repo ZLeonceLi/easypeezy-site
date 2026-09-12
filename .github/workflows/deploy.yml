@@ -6,18 +6,17 @@ on:
   workflow_dispatch:
 
 jobs:
-  ftp-deploy:
+  sftp-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
       - name: SFTP Deploy
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
         with:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           port: 22
-          protocol: sftp
-          local-dir: public/
-          server-dir: /www/
+          local_path: './public/*'
+          remote_path: '/www/'
